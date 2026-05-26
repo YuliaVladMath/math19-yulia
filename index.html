@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ОГЭ №19 — Тренажёр</title>
+
+<style>
+
+body{
+margin:0;
+padding:20px;
+font-family:Arial,sans-serif;
+background:linear-gradient(135deg,#141e30,#243b55);
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+box-sizing:border-box;
+}
+
+.container{
+width:100%;
+max-width:900px;
+background:rgba(0,0,0,0.55);
+padding:30px;
+border-radius:24px;
+box-shadow:0 10px 35px rgba(0,0,0,0.45);
+}
+
+h1{
+text-align:center;
+font-size:38px;
+margin:0;
+}
+
+.subtitle{
+text-align:center;
+font-size:20px;
+opacity:0.9;
+margin-top:10px;
+margin-bottom:25px;
+}
+
+.socials{
+display:flex;
+gap:12px;
+margin-bottom:25px;
+}
+
+.socials a{
+flex:1;
+text-align:center;
+padding:16px;
+border-radius:16px;
+font-size:20px;
+font-weight:bold;
+text-decoration:none;
+color:white;
+transition:0.2s;
+}
+
+.socials a:hover{
+transform:scale(1.03);
+}
+
+.vk{
+background:linear-gradient(135deg,#4C75A3,#5f8fc9);
+}
+
+.max{
+background:linear-gradient(135deg,#ff6a00,#ff8c42);
+}
+
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+font-size:20px;
+font-weight:bold;
+}
+
+.task-box{
+background:rgba(255,255,255,0.08);
+padding:30px;
+border-radius:22px;
+}
+
+.task{
+font-size:32px;
+line-height:1.5;
+font-weight:bold;
+margin-bottom:30px;
+}
+
+.buttons{
+display:flex;
+gap:16px;
+}
+
+.buttons button{
+flex:1;
+padding:24px;
+border:none;
+border-radius:18px;
+font-size:30px;
+font-weight:bold;
+cursor:pointer;
+transition:0.2s;
+box-shadow:0 6px 20px rgba(0,0,0,0.3);
+}
+
+.buttons button:hover{
+transform:scale(1.04);
+}
+
+.true-btn{
+background:linear-gradient(135deg,#00d26a,#00ff88);
+color:white;
+}
+
+.false-btn{
+background:linear-gradient(135deg,#ff3b3b,#ff6b6b);
+color:white;
+}
+
+.result{
+margin-top:25px;
+padding:24px;
+border-radius:18px;
+font-size:36px;
+font-weight:bold;
+text-align:center;
+display:none;
+animation:show 0.3s ease;
+}
+
+.correct{
+background:rgba(0,255,150,0.2);
+border:2px solid #00ffb3;
+color:#00ffb3;
+}
+
+.wrong{
+background:rgba(255,80,80,0.2);
+border:2px solid #ff6b6b;
+color:#ff6b6b;
+}
+
+.finish{
+text-align:center;
+font-size:34px;
+line-height:1.7;
+padding:20px;
+}
+
+@keyframes show{
+from{
+opacity:0;
+transform:scale(0.9);
+}
+to{
+opacity:1;
+transform:scale(1);
+}
+}
+
+@media(max-width:700px){
+
+.task{
+font-size:24px;
+}
+
+.buttons{
+flex-direction:column;
+}
+
+.buttons button{
+font-size:24px;
+padding:20px;
+}
+
+.top{
+flex-direction:column;
+gap:10px;
+font-size:18px;
+}
+
+.socials{
+flex-direction:column;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Юлия Владимировна</h1>
+
+<div class="subtitle">
+Тренажёр ОГЭ №19 • Геометрия
+</div>
+
+<div class="socials">
+
+<a class="vk"
+href="https://vk.ru/id711877188"
+target="_blank">
+VK Юлии Владимировны
+</a>
+
+<a class="max"
+href="https://max.ru/id501906671902_biz"
+target="_blank">
+MAX Юлии Владимировны
+</a>
+
+</div>
+
+<div class="top">
+
+<div id="progress">
+1 / 117
+</div>
+
+<div id="timer">
+⏱ 00:00
+</div>
+
+<div id="score">
+Баллы: 0
+</div>
+
+</div>
+
+<div class="task-box">
+
+<div class="task" id="task"></div>
+
+<div class="buttons">
+
+<button class="true-btn" onclick="answer(true)">
+✔ ВЕРНО
+</button>
+
+<button class="false-btn" onclick="answer(false)">
+✖ НЕВЕРНО
+</button>
+
+</div>
+
+<div id="result" class="result"></div>
+
+</div>
+
+</div>
+
+<script>
+
+const tasks = [
+
+{text:"Точка, лежащая на серединном перпендикуляре к отрезку, равноудалена от концов этого отрезка.",answer:true},
+{text:"Существуют три прямые, которые проходят через одну точку.",answer:true},
+{text:"Смежные углы всегда равны.",answer:false},
+{text:"Вертикальные углы равны.",answer:true},
+{text:"Всегда один из двух смежных углов острый, а другой тупой.",answer:false},
+{text:"Через заданную точку плоскости можно провести только одну прямую.",answer:false},
+{text:"Если точка лежит на биссектрисе угла, то она равноудалена от сторон этого угла.",answer:true},
+{text:"Если угол острый, то смежный с ним угол также является острым.",answer:false},
+
+{text:"Две прямые, параллельные третьей прямой, перпендикулярны.",answer:false},
+{text:"Две прямые, перпендикулярные третьей прямой, перпендикулярны.",answer:false},
+{text:"Две различные прямые, перпендикулярные третьей прямой, параллельны.",answer:true},
+{text:"Через точку, не лежащую на данной прямой, можно провести прямую, перпендикулярную этой прямой.",answer:true},
+{text:"Через точку, не лежащую на данной прямой, можно провести прямую, параллельную этой прямой.",answer:true},
+
+{text:"Если в треугольнике есть один острый угол, то этот треугольник остроугольный.",answer:false},
+{text:"В любом тупоугольном треугольнике есть острый угол.",answer:true},
+{text:"В тупоугольном треугольнике все углы тупые.",answer:false},
+{text:"В остроугольном треугольнике все углы острые.",answer:true},
+{text:"В треугольнике против большего угла лежит большая сторона.",answer:true},
+{text:"Внешний угол треугольника больше не смежного с ним внутреннего угла.",answer:true},
+{text:"Внешний угол треугольника равен сумме его внутренних углов.",answer:false},
+
+{text:"Один из углов треугольника всегда не превышает 60 градусов.",answer:true},
+{text:"Медиана треугольника делит пополам угол, из вершины которого проведена.",answer:false},
+{text:"Отношение площадей подобных треугольников равно коэффициенту подобия.",answer:false},
+{text:"Площадь треугольника меньше произведения двух его сторон.",answer:true},
+{text:"Сумма углов любого треугольника равна 360 градусам.",answer:false},
+{text:"Треугольник со сторонами 1, 2, 4 существует.",answer:false},
+{text:"Треугольника со сторонами 1, 2, 5 не существует.",answer:true},
+
+{text:"Биссектриса треугольника делит пополам сторону, к которой проведена.",answer:false},
+{text:"Если два угла одного треугольника равны двум углам другого треугольника, то такие треугольники подобны.",answer:true},
+{text:"Если две стороны и угол одного треугольника равны соответственно двум сторонам и углу другого треугольника, то такие треугольники равны.",answer:false},
+
+{text:"Если две стороны одного треугольника соответственно равны двум сторонам другого треугольника, то такие треугольники равны.",answer:false},
+{text:"Если три угла одного треугольника равны соответственно трём углам другого треугольника, то такие треугольники равны.",answer:false},
+
+{text:"Биссектрисы треугольника пересекаются в точке, которая является центром окружности, вписанной в треугольник.",answer:true},
+{text:"Серединные перпендикуляры к сторонам треугольника пересекаются в точке, являющейся центром окружности, описанной около треугольника.",answer:true},
+
+{text:"Все равнобедренные треугольники подобны.",answer:false},
+{text:"Всякий равнобедренный треугольник является остроугольным.",answer:false},
+{text:"Каждая из биссектрис равнобедренного треугольника является его высотой.",answer:false},
+{text:"Каждая из биссектрис равнобедренного треугольника является его медианой.",answer:false},
+
+{text:"Сумма углов равнобедренного треугольника равна 180 градусам.",answer:true},
+{text:"Все высоты равностороннего треугольника равны.",answer:true},
+{text:"Всякий равносторонний треугольник является равнобедренным.",answer:true},
+{text:"Всякий равносторонний треугольник является остроугольным.",answer:true},
+{text:"Любые два равносторонних треугольника подобны.",answer:true},
+
+{text:"Вписанный угол, опирающийся на диаметр окружности, прямой.",answer:true},
+{text:"Все диаметры окружности равны между собой.",answer:true},
+{text:"Все хорды одной окружности равны между собой.",answer:false},
+{text:"Касательная к окружности перпендикулярна радиусу, проведённому в точку касания.",answer:true},
+{text:"Любые два диаметра окружности пересекаются.",answer:true},
+{text:"Расстояние от точки, лежащей на окружности, до центра окружности равно радиусу.",answer:true},
+{text:"Точка пересечения двух окружностей равноудалена от центров этих окружностей.",answer:true},
+{text:"Центры вписанной и описанной окружностей равностороннего треугольника совпадают.",answer:true},
+{text:"Через любую точку, лежащую вне окружности, можно провести две касательные к этой окружности.",answer:true}
+
+];
+
+// перемешивание
+tasks.sort(()=>Math.random()-0.5);
+
+let index=0;
+let score=0;
+let wrong=0;
+
+// показать задание
+function showTask(){
+
+if(index>=tasks.length){
+
+document.querySelector(".task-box").innerHTML=
+`
+<div class="finish">
+
+🎉 Тренировка завершена!<br><br>
+
+✅ Правильных ответов: ${score}<br>
+
+❌ Ошибок: ${wrong}<br>
+
+📊 Результат: ${Math.round(score/tasks.length*100)}%
+
+</div>
+`;
+
+return;
+}
+
+document.getElementById("task").innerText=
+tasks[index].text;
+
+document.getElementById("progress").innerText=
+`${index+1} / ${tasks.length}`;
+
+document.getElementById("score").innerText=
+`Баллы: ${score}`;
+
+document.getElementById("result").style.display="none";
+}
+
+// ответ
+function answer(user){
+
+let correct=tasks[index].answer;
+
+let result=document.getElementById("result");
+
+if(user===correct){
+
+score++;
+
+result.innerHTML="✔ ВЕРНО";
+result.className="result correct";
+
+}else{
+
+wrong++;
+
+result.innerHTML="✖ НЕВЕРНО";
+result.className="result wrong";
+}
+
+result.style.display="block";
+
+// задержка показа ответа
+setTimeout(()=>{
+
+index++;
+
+showTask();
+
+},2200);
+
+}
+
+// таймер
+let sec=0;
+
+setInterval(()=>{
+
+sec++;
+
+let m=Math.floor(sec/60);
+
+let s=sec%60;
+
+document.getElementById("timer").innerText=
+`⏱ ${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+
+},1000);
+
+showTask();
+
+</script>
+
+</body>
+</html>
